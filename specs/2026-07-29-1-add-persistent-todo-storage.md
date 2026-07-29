@@ -61,7 +61,7 @@ App
 
 Add two functions to `services/todo.js`:
 
-- **`loadFromLocalStorage()`** — reads `localStorage.getItem('todos')`, parses JSON, validates the result is an array (empty or non-empty), returns parsed data or falls back to the existing hardcoded defaults (the three sample todos) on parse errors or when the result is not an array
+- **`loadFromLocalStorage()`** — reads `localStorage.getItem('todos')`, parses JSON, validates the result is an array (empty or non-empty), returns parsed data or falls back to the existing hardcoded defaults (the three sample todos) on parse errors or when the result is not an array. Feature-detects `window.localStorage` before access; returns fallback defaults when localStorage is unavailable.
 - **`saveToLocalStorage(list)`** — wraps `localStorage.setItem('todos', JSON.stringify(list))` in a try/catch to handle quota errors; logs a `console.warn` on failure (see risk table)
 
 Modify `getAll()` to call `loadFromLocalStorage()` instead of returning the hardcoded array directly. The hardcoded array becomes the fallback default when localStorage is empty or corrupted.
@@ -101,6 +101,7 @@ Add tests in `src/services/__tests__/todo.test.js` using Jest (included with `re
 - **`loadFromLocalStorage` returns fallback defaults when localStorage is empty**
 - **`loadFromLocalStorage` returns fallback defaults when JSON is malformed**
 - **`loadFromLocalStorage` returns empty array when localStorage contains `[]`**
+- **`loadFromLocalStorage` returns fallback defaults when `window.localStorage` is not available** — mock by deleting `window.localStorage` or setting it to `undefined` in the test setup, then verify the function returns the hardcoded defaults without throwing
 - **`saveToLocalStorage` writes JSON to localStorage**
 - **`addToList` appends item with generated id**
 - **`updateStatus` toggles completed without mutating original**
