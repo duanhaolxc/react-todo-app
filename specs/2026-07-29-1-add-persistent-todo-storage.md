@@ -62,7 +62,7 @@ App
 Add two functions to `services/todo.js`:
 
 - **`loadFromLocalStorage()`** — reads `localStorage.getItem('todos')`, parses JSON, validates the result is an array (empty or non-empty), returns parsed data or falls back to the existing hardcoded defaults (the three sample todos) on parse errors or when the result is not an array
-- **`saveToLocalStorage(list)`** — wraps `localStorage.setItem('todos', JSON.stringify(list))` in a try/catch to handle quota errors silently (see risk table)
+- **`saveToLocalStorage(list)`** — wraps `localStorage.setItem('todos', JSON.stringify(list))` in a try/catch to handle quota errors; logs a `console.warn` on failure (see risk table)
 
 Modify `getAll()` to call `loadFromLocalStorage()` instead of returning the hardcoded array directly. The hardcoded array becomes the fallback default when localStorage is empty or corrupted.
 
@@ -112,7 +112,7 @@ Mock `localStorage` with a simple in-memory store in test setup.
 | Risk | Likelihood | Mitigation |
 |---|---|---|
 | Breaking existing keyboard shortcuts | Low — changes are additive | Verify N key, / key, Escape all work manually |
-| localStorage quota exceeded | Very low (todos are tiny JSON) | Add try/catch in `saveToLocalStorage` that silently fails |
+| localStorage quota exceeded | Very low (todos are tiny JSON) | Add try/catch in `saveToLocalStorage` that logs a `console.warn` and silently fails |
 | localStorage not available (private browsing, SSR) | Low | Feature-detect `window.localStorage` before access; if unavailable, operate entirely in-memory — all todo operations work, but data won't persist across sessions. Log a `console.warn` to aid debugging. |
 | Corrupted localStorage data | Low | Validate parsed data is an array; fall back to defaults on any parse error |
 | Styling regression with new input-group | Low | Bootstrap 3 `input-group` + `input-group-btn` pattern is standard; test manually |
