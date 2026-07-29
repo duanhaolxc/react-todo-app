@@ -61,7 +61,7 @@ App
 
 Add two functions to `services/todo.js`:
 
-- **`loadFromLocalStorage()`** — reads `localStorage.getItem('todos')`, parses JSON, validates it's a non-empty array, returns parsed data or falls back to the existing hardcoded defaults (the three sample todos)
+- **`loadFromLocalStorage()`** — reads `localStorage.getItem('todos')`, parses JSON, validates the result is an array (empty or non-empty), returns parsed data or falls back to the existing hardcoded defaults (the three sample todos) on parse errors or when the result is not an array
 - **`saveToLocalStorage(list)`** — `localStorage.setItem('todos', JSON.stringify(list))`
 
 Modify `getAll()` to call `loadFromLocalStorage()` instead of returning the hardcoded array directly. The hardcoded array becomes the fallback default when localStorage is empty or corrupted.
@@ -100,6 +100,7 @@ Add tests in `src/services/__tests__/todo.test.js` using Jest (included with `re
 - **`loadFromLocalStorage` returns parsed data when valid JSON exists**
 - **`loadFromLocalStorage` returns fallback defaults when localStorage is empty**
 - **`loadFromLocalStorage` returns fallback defaults when JSON is malformed**
+- **`loadFromLocalStorage` returns empty array when localStorage contains `[]`**
 - **`saveToLocalStorage` writes JSON to localStorage**
 - **`addToList` appends item with generated id**
 - **`updateStatus` toggles completed without mutating original**
