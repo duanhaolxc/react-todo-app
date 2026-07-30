@@ -39,7 +39,11 @@ Add a Bootstrap 3 `page-header` element inside the `.container` div, **above** t
 - Uses Bootstrap 3's built-in `page-header` class for a styled horizontal rule separator
 - Bootstrap grid (`col-xs-6`) for left/right layout — title on left, date on right
 - `text-right` for right-aligned date
-- Date computed via `new Date().toISOString().slice(0, 10)` in the render function
+- Date computed in the render function using the user's local timezone:
+  ```js
+  const d = new Date();
+  const dateStr = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+  ```
 
 ### What changes
 
