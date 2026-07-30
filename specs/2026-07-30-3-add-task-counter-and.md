@@ -38,7 +38,7 @@ const totalCount = list.length;
 const completedCount = list.filter(item => item.completed === true).length;
 ```
 
-Pass `{totalCount, completedCount}` to Footer. The existing `activeItemCount` prop is no longer needed and can be replaced.
+Pass `{totalCount, completedCount, filter, changeFilter, mode, changeMode}` to Footer, replacing `activeItemCount` with `completedCount` and `totalCount`. The other props (`filter`, `changeFilter`, `mode`, `changeMode`) remain unchanged.
 
 ### 2. `src/components/ui/Footer.js`
 
@@ -78,7 +78,9 @@ TodoList
 
 ## Validation
 
-1. **Unit/manual tests**: Verify Footer renders "已完成 0 / 总数 3" on fresh load (3 hardcoded todos, all uncompleted)
+1. **Manual tests**: Verify Footer renders "已完成 0 / 总数 3" on fresh load (3 hardcoded todos, all uncompleted)
+
+   > No test framework exists in this project; all validation is manual.
 2. Check a todo → counter shows "已完成 1 / 总数 3", progress bar at 33%
 3. Add a new todo → total increments; counter shows "已完成 1 / 总数 4", progress bar at 25%
 4. Uncheck the todo → counter returns to "已完成 0 / 总数 4", progress bar at 0%
@@ -92,3 +94,4 @@ TodoList
 - Bootstrap 3 progress bar markup: `<div className="progress"><div className="progress-bar progress-bar-success" style={{width: `${percent}%`}}></div></div>`
 - Add inline `marginLeft: '10px'` and a fixed `width` (e.g., `200px`) on the progress bar wrapper to keep layout tidy
 - Remove the `activeItemCount` computation in TodoList since it's replaced by `completedCount` and `totalCount`
+- After removing `activeItemCount`, the `FILTER_ACTIVE` import in TodoList.js becomes unused and should be removed from the import statement
