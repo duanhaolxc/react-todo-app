@@ -9,17 +9,20 @@ export function getAll() {
         {
             id: 1,
             text: 'Learn Javascript',
-            completed: false
+            completed: false,
+            createdAt: new Date('2026-07-25T09:00:00')
         },
         {
             id: 2,
             text: 'Learn React',
-            completed: false
+            completed: false,
+            createdAt: new Date('2026-07-28T14:30:00')
         },
         {
             id: 3,
             text: 'Build a React App',
-            completed: false
+            completed: false,
+            createdAt: new Date('2026-07-30T11:15:00')
         }
     ]
 }
@@ -59,7 +62,8 @@ function getNextId() {
  */
 export function addToList(list, data) {
     let item = Object.assign({
-        id: getNextId()
+        id: getNextId(),
+        createdAt: new Date()
     }, data);
 
     return list.concat([item]);

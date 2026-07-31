@@ -48,6 +48,14 @@ li.completed label {
     color: #aaa;
 }
 
+.todo-time {
+    color: #555;
+}
+
+.completed .todo-time {
+    color: #aaa;
+}
+
 footer {
     border-top: 1px solid #ddd;
     background-color: #F4FCE8;
