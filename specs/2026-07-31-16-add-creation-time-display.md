@@ -26,7 +26,7 @@ Users cannot see when a todo item was created. Each item should display its crea
 ### Component (`src/components/ui/TodoItem.js`)
 
 - Add a `<span>` element to the right of the todo text that displays the formatted `createdAt` value.
-- Format: `MM-DD HH:mm` (e.g., `07-31 14:30`).
+- Format: `MM-DD HH:mm` (e.g., `07-31 14:30` for July 31st, `01-05 09:03` for January 5th). Single-digit months and days must be zero-padded (e.g., `01-05` for January 5th, not `1-5`).
 - Apply Bootstrap 3 utility class `pull-right` so the time sits on the right edge of the list item.
 - When the item is completed, the timestamp text color should be gray (`#aaa`), matching the existing completed-item styling.
 
@@ -39,7 +39,7 @@ Users cannot see when a todo item was created. Each item should display its crea
 ### No Changes To
 
 - `FilteredList.js` — already passes `data` as-is to `TodoItem`.
-- `StateProvider.js` — already delegates to `addToList()`; `addNew()` passes `{text, completed: false}` and `addToList` now adds `createdAt`.
+- `src/components/wrappers/StateProvider.js` — already delegates to `addToList()`; `addNew()` passes `{text, completed: false}` and `addToList` now adds `createdAt`.
 - `CheckBox`, `SearchBox`, `Filter`, `Footer` — unaffected.
 
 ## Files Modified
